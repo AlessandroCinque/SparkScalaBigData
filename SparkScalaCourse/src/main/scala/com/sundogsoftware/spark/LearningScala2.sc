@@ -82,3 +82,6 @@ def fib3(acc: Int): Int = {
     }
     return fib_tail(acc, 0 , 1)
 }
+println(fib3(10))
+println("Dio bestia")
+println(fib3(10))
