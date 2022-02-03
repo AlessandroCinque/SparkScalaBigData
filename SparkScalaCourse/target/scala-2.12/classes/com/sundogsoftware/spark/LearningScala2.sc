@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 //Flow control
 
 //if else:
@@ -55,24 +56,32 @@ println({val x= 10; x+20})
 //This is the sequence where every number is the sum of the two numbers before it
 //So the result should be 0,1,1,2,3,5,8,13,21,34
 
-def fib1(n: Long): Long = n match {
-    case 0 | 1 => n
-    case _ => fib1(n - 1) + fib1(n - 2)
-}
-
-def fib3( n : Int) : Int = {
-    def fib_tail( n: Int, a:Int, b:Int): Int = n match {
-        case 0 => a
-        case _ => fib_tail( n-1, b, a+b )
-    }
-    return fib_tail( n, 0, 1)
-}
+var num1 = 0
+var num2 = 1
 var acc = 0
 while(acc < 10)
 {
-    val f1 = acc -1
-    val f2 = acc -2
-    val result = f1+ f2
+    val result = num1 + num2
+    num1 = num2
+    num2 = result
     println(result)
+    acc +=1
 }
-println(fib1(10))
+//This is the tailrec version which although it cannot satisfy the excercise
+//to notice how the logic is pretty much the same
+def fib3(acc: Int): Int = {
+    @tailrec
+    //Here we enter first a and then b
+    def fib_tail(acc: Int, a: Int, b: Int): Int =
+        acc match {
+            //this is the end condition
+        case 0 => a
+            //here INSTEAD we pass first b (which replaces a) and then the sum of a +b
+            //BEFORE all of this of course we decrease the accumulator so that it can meet the end codition above specified
+        case _ => fib_tail(acc - 1, b, a + b)
+    }
+    return fib_tail(acc, 0 , 1)
+}
+println(fib3(10))
+println("Dio bestia")
+println(fib3(10))
