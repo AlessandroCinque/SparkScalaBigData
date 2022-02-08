@@ -1,4 +1,6 @@
 import org.sparkproject.dmg.pmml.True
+
+import scala.annotation.tailrec
 //Data structures
 
 //Tuples, very common in Sparks
@@ -91,13 +93,59 @@ val hasFive = iHateFives.contains(5)
 
 // MAPS
 
-val shipMap = Map("krik" -> "Enterprise", "Picard" -> "Enterprise-D", "Sisko"->"Deep Space Nine")
+val shipMap = Map("Kirk" -> "Enterprise", "Picard" -> "Enterprise-D", "Sisko"->"Deep Space Nine")
 
 
 println(shipMap("Kirk"))
+
+val archerShip = util.Try(shipMap("Archer")) getOrElse( "Unknown")
+println(archerShip)
 
 // EXERCISE
 // Create a list of the numbers 1-20; your job is to print out numbers that are evenly divisible by three. (Scala's
 // modula operator, like other languages, is %, which gives you the remainder after division. For example, 9 % 3 = 0
 // because 9 is evenly divisible by 3.) Do this first by iterating through all the items in the list and testing each
 // one as you go. Then, do it again by using a filter function on the list instead.
+
+//def MultipleOf(list: List[Int],multipleof:Int): List[Int] =
+//{
+//    var porcamadonna = List[Int]()
+//    def helper(tempList:List[Int],acc: Int):List[Int] =
+//    {
+//        if(acc == 0) porcamadonna
+//        else if(tempList.head % multipleof == 0)
+//        {
+//            val newList= porcamadonna :+ tempList.head
+//            println(tempList.head % multipleof, tempList.head)
+//            helper(newList,acc -1)
+//
+//        }
+//        else helper(tempList.tail,acc -1)
+//    }
+//    println(list)
+//    helper(list,list.length)
+//}
+val check = (1 to 20).toList
+def MultipleOf(list: List[Int]):Unit =
+{
+    @tailrec
+    def helper(tempList: List[Int], acc:Int): Unit =
+    {
+        if (acc == 0) println("over")
+        else if(tempList.head % 3 == 0)
+        {
+            println(tempList.head)
+            helper(tempList.tail,acc -1)
+        }
+        else helper(tempList.tail,acc-1)
+    }
+    helper(list,list.length)
+}
+MultipleOf(check)
+
+def withfiller(list: List[Int]): List[Int] =
+{
+    val result = list.filter(_ % 3 == 0)
+    result
+}
+println(withfiller(check))

@@ -20,6 +20,8 @@ object RatingsCounter {
     
     // Convert each line to a string, split it out by tabs, and extract the third field.
     // (The file format is userID, movieID, rating, timestamp)
+    //to notice that 2... Which is the third elemnt because it is not a Scala list -
+    //but it is taken from an external DB
     val ratings = lines.map(x => x.split("\t")(2))
     
     // Count up how many times each value (rating) occurs
